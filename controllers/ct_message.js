@@ -18,11 +18,11 @@ const addMessage = async (req,res) => {
 
 const getMessages = async (req,res) => {
 
-    const {chatId} = req.params.chatId
+    const chatId = req.params.chatId
 
     try {
         
-        const findChats  = await messageSchema.find(chatId)
+        const findChats  = await messageSchema.find({chatId})
 
         return res.status(201).json({message : "all chats" , findChats})
     } catch (error) {   
