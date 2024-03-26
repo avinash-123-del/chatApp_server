@@ -38,10 +38,10 @@ const loginUser = async (req, res) => {
       const passwordMatch = await brcypt.compare(password, user.password);
 
       if (!passwordMatch) {
-         return res.status(401).json({ message: "Authentication failed" });
+         return res.status(401).json({ message: "Authentication failed" , status : 0 });
       }
 
-      return res.status(200).json({ message: "Login successful" , user });
+      return res.status(200).json({ message: "Login successful" , status : 1 , user});
 
    } catch (error) {
       return res.status(500).json({ message: "Server error" });
@@ -53,11 +53,26 @@ const getAllUsers = async (req, res) => {
    return res.status(200).json({ message: "Users fetched successfully" , getUsers })
 }
 
-const getUserById = async (req, res) => {
-   const { id } = req.params
-   const getUser = await userSchema.findById(id, { password: 0 })
-   return res.status(200).json({ message: "User fetched successfully", getUser })
+const getOneUser = async(req,res) => {
+   const {userId} = req.body;
 
+try {
+   
+   const oneUser = await userSchema.findOne({_id : userId})
+
+   if(oneUser){
+      return res.status(201).json(oneUser)
+   }
+
+   else {
+      return res.status(401).send("user not found")
+   }
+} catch (error) {
+   
+   return res.staus(501).send("failed to fetch user")
 }
 
-export { addUsers , loginUser , getAllUsers , getUserById}
+   
+}
+
+export { addUsers , loginUser , getAllUsers, getOneUser }
