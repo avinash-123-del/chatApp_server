@@ -41,7 +41,7 @@ const loginUser = async (req, res) => {
          return res.status(401).json({ message: "Authentication failed" });
       }
 
-      return res.status(200).json({ message: "Login successful" });
+      return res.status(200).json({ message: "Login successful" , user });
 
    } catch (error) {
       return res.status(500).json({ message: "Server error" });
@@ -53,4 +53,11 @@ const getAllUsers = async (req, res) => {
    return res.status(200).json({ message: "Users fetched successfully" , getUsers })
 }
 
-export { addUsers , loginUser , getAllUsers }
+const getUserById = async (req, res) => {
+   const { id } = req.params
+   const getUser = await userSchema.findById(id, { password: 0 })
+   return res.status(200).json({ message: "User fetched successfully", getUser })
+
+}
+
+export { addUsers , loginUser , getAllUsers , getUserById}

@@ -1,5 +1,6 @@
 import {chatSchema} from "../models/tbl_chatMember.js";
 
+//-------------------- to create chat id ---------------------
 const createChat = async (req, res) => {
 
    const newChat = new chatSchema({
