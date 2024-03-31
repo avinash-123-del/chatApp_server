@@ -13,6 +13,9 @@ const usermodel = mongoose.Schema({
           password : {
                     type: String,
                     required: true
+          },
+          socketId : {
+            type : String
           }
 })
 

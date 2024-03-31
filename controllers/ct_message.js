@@ -8,7 +8,7 @@ const addMessage = async (req,res) => {
     
         await createMessage.save();
     
-        return res.status(201).json({message : "message send successfully "});
+        return res.status(201).json({message : "message send successfully " , text});
 
     } catch (error) {
         return res.status(500).json({message : "internal server error"});
